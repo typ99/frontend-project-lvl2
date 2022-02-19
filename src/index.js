@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import _ from 'lodash';
 
 const readJSON = (file) => {
   const readFile = fs.readFileSync(path.resolve(file), 'utf-8');
@@ -17,6 +16,7 @@ const genDiff = (path1, path2) => {
   const combDataEntries = Object.entries(combData).sort();
   const result = {};
 
+  /* eslint-disable-next-line */
   for (const [key, value] of combDataEntries) {
     if (data1Keys.includes(key) && data2Keys.includes(key) && data1[key] === value) {
       result[`  ${key}`] = data1[key];
