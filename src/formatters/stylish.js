@@ -1,25 +1,6 @@
-const currentIndent = (depth, intend = 4) => ' '.repeat(intend + depth);
+import stringify, { currentIndent } from './stringify.js';
 
-const stringify = (someEntity, spaceCount) => {
-  const iter = (current, depth) => {
-    if (typeof current !== 'object') {
-      return `${current}`;
-    }
-    if (current === null) { return null; }
-    const lines = Object
-      .entries(current)
-      .map(([key, value]) => `${currentIndent(depth + 4)}${key}: ${iter(value, depth + 4)}`);
-    return [
-      '{',
-      ...lines,
-      `${currentIndent(depth)}}`,
-    ].join('\n');
-  };
-
-  return iter(someEntity, spaceCount);
-};
-
-const formatter = (data) => {
+const stylish = (data) => {
   const iter = (tree, depth) => tree.map((node) => {
     if (node[0] === 'add') {
       return `${currentIndent(depth - 2)}+ ${node[1].key}: ${stringify(node[1].val, depth)}\n`;
@@ -38,4 +19,4 @@ const formatter = (data) => {
   return `{\n${iter(data, 0).join('')}}`;
 };
 
-export default formatter;
+export default stylish;

@@ -18,3 +18,7 @@
 ### JSON && YML
 
 [![asciicast](https://asciinema.org/a/yTGHuc2MhjLbPUtWvP6KdAq9O.svg)](https://asciinema.org/a/yTGHuc2MhjLbPUtWvP6KdAq9O)
+
+### PLAIN FORMATTER
+
+[![asciicast](https://asciinema.org/a/Nr6Z3NkFA0OQDqTvweqBlgnek.svg)](https://asciinema.org/a/Nr6Z3NkFA0OQDqTvweqBlgnek)

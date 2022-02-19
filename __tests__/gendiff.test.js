@@ -24,3 +24,11 @@ test('yaml', () => {
 
   expect(genDiff(file1, file2)).toBe(result);
 });
+
+test('plain', () => {
+  const file1 = getFixturePath('file1.json');
+  const file2 = getFixturePath('file2.json');
+  const result = readFile('resultplain.txt');
+
+  expect(genDiff(file1, file2, 'plain')).toBe(result);
+});

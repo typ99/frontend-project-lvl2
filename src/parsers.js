@@ -4,8 +4,12 @@ import yaml from 'js-yaml';
 
 export default (file) => {
   const filename = fs.readFileSync(path.resolve(file), 'utf-8');
-  if (path.extname(file) === '.json') {
+  const format = path.extname(file);
+  if (format === '.json') {
     return JSON.parse(filename);
   }
-  return yaml.load(filename);
+  if (format === '.yml' || format === '.yaml') {
+    return yaml.load(filename);
+  }
+  return file;
 };
