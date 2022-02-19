@@ -14,3 +14,7 @@
 ### YML
 
 [![asciicast](https://asciinema.org/a/lFPbKvuZkcusPOmCrAu82dwxV.svg)](https://asciinema.org/a/lFPbKvuZkcusPOmCrAu82dwxV)
+
+### JSON && YML
+
+[![asciicast](https://asciinema.org/a/yTGHuc2MhjLbPUtWvP6KdAq9O.svg)](https://asciinema.org/a/yTGHuc2MhjLbPUtWvP6KdAq9O)
