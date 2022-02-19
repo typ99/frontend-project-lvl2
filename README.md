@@ -22,3 +22,7 @@
 ### PLAIN FORMATTER
 
 [![asciicast](https://asciinema.org/a/Nr6Z3NkFA0OQDqTvweqBlgnek.svg)](https://asciinema.org/a/Nr6Z3NkFA0OQDqTvweqBlgnek)
+
+### JSON FORMATTER
+
+[![asciicast](https://asciinema.org/a/5e1SFkhEnuR6dEMJC9h1Y2hbD.svg)](https://asciinema.org/a/5e1SFkhEnuR6dEMJC9h1Y2hbD)
