@@ -1,15 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-
-const readJSON = (file) => {
-  const readFile = fs.readFileSync(path.resolve(file), 'utf-8');
-  const parseData = JSON.parse(readFile);
-  return parseData;
-};
+import parser from './parsers.js';
 
 const genDiff = (path1, path2) => {
-  const data1 = readJSON(path1);
-  const data2 = readJSON(path2);
+  const data1 = parser(path1);
+  const data2 = parser(path2);
   const data1Keys = Object.keys(data1);
   const data2Keys = Object.keys(data2);
   const combData = { ...data1, ...data2 };

@@ -7,4 +7,10 @@
 
 ## Gendiff example
 
+### JSON
+
 [![asciicast](https://asciinema.org/a/ASr4O6hVfi0vs1Red44YlwMzR.svg)](https://asciinema.org/a/ASr4O6hVfi0vs1Red44YlwMzR)
+
+### YML
+
+[![asciicast](https://asciinema.org/a/lFPbKvuZkcusPOmCrAu82dwxV.svg)](https://asciinema.org/a/lFPbKvuZkcusPOmCrAu82dwxV)
