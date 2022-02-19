@@ -1,22 +1,37 @@
-import stringify, { currentIndent } from './stringify.js';
-
-const stylish = (data) => {
+const indent = (depth, spaceCount = 4) => ' '.repeat(spaceCount * depth - 2);
+const stringify = (data, treeDepth) => {
+  if (typeof data !== 'object') {
+    return `${data}`;
+  }
+  if (data === null) { return null; }
+  const lines = Object
+    .entries(data)
+    .map(([key, value]) => `${indent(treeDepth + 1)}  ${key}: ${stringify(value, treeDepth + 1)}`);
+  return [
+    '{',
+    ...lines,
+    `${indent(treeDepth)}  }`,
+  ].join('\n');
+};
+const stylish = (innerTree) => {
   const iter = (tree, depth) => tree.map((node) => {
-    if (node[0] === 'add') {
-      return `${currentIndent(depth - 2)}+ ${node[1].key}: ${stringify(node[1].val, depth)}\n`;
+    const getValue = (value, sign) => `${indent(depth)}${sign} ${node.key}: ${stringify(value, depth)}\n`;
+    switch (node.type) {
+      case 'add':
+        return getValue(node.val, '+');
+      case 'remove':
+        return getValue(node.val, '-');
+      case 'same':
+        return getValue(node.val, ' ');
+      case 'updated':
+        return `${getValue(node.val1, '-')}${getValue(node.val2, '+')}`;
+      case 'recursion':
+        return `${indent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1).join('')}${indent(depth)}  }\n`;
+      default:
+        throw new Error(`Этого типа не существует: ${node.type}`);
     }
-    if (node[0] === 'remove') {
-      return `${currentIndent(depth - 2)}- ${node[1].key}: ${stringify(node[1].val, depth)}\n`;
-    }
-    if (node[0] === 'same') {
-      return `${currentIndent(depth - 2)}  ${node[1].key}: ${stringify(node[1].val, depth)}\n`;
-    }
-    if (node[0] === 'updated') {
-      return `${currentIndent(depth - 2)}- ${node[1].key}: ${stringify(node[1].val1, depth)}\n${currentIndent(depth - 2)}+ ${node[1].key}: ${stringify(node[1].val2, depth)}\n`;
-    }
-    return `${currentIndent(depth)}${node[1].key}: {\n${iter(node[1].val, depth + 4).join('')}${currentIndent(depth)}}\n`;
   });
-  return `{\n${iter(data, 0).join('')}}`;
+  return `{\n${iter(innerTree, 1).join('')}}`;
 };
 
 export default stylish;

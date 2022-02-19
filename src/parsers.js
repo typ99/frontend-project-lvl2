@@ -1,15 +1,12 @@
-import fs from 'fs';
-import path from 'path';
 import yaml from 'js-yaml';
 
-export default (file) => {
-  const filename = fs.readFileSync(path.resolve(file), 'utf-8');
-  const format = path.extname(file);
-  if (format === '.json') {
-    return JSON.parse(filename);
+export default (format, data) => {
+  switch (format) {
+    case 'json':
+      return JSON.parse(data);
+    case 'yml':
+      return yaml.load(data);
+    default:
+      throw new Error(`Формат не поддерживается: ${format}`);
   }
-  if (format === '.yml' || format === '.yaml') {
-    return yaml.load(filename);
-  }
-  return file;
 };

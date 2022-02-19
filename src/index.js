@@ -1,31 +1,20 @@
-import _ from 'lodash';
-import parser from './parsers.js';
+import fs from 'fs';
+import path from 'path';
+import parse from './parsers.js';
 import format from './formatters/index.js';
+import buildTree from './buildTree.js';
 
-const createTree = (obj1, obj2) => {
-  const keys = Object.keys({ ...obj1, ...obj2 });
-  const sortedKeys = _.sortBy(keys);
-  return sortedKeys.map((key) => {
-    if (!_.has(obj1, key)) {
-      return ['add', { key, val: obj2[key] }];
-    }
-    if (!_.has(obj2, key)) {
-      return ['remove', { key, val: obj1[key] }];
-    }
-    if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
-      return ['recursion', { key, val: createTree(obj1[key], obj2[key]) }];
-    }
-    if (_.isEqual(obj1[key], obj2[key])) {
-      return ['same', { key, val: obj1[key] }];
-    }
-    return ['updated', { key, val1: obj1[key], val2: obj2[key] }];
-  });
-};
+const readFile = (filename) => fs.readFileSync(path.resolve(process.cwd(), filename.trim()), 'utf-8');
+const extractFormat = (filename) => path.extname(filename).slice(1);
 
-const genDiff = (filepath1, filepath2, formatType = 'stylish') => {
-  const file1 = parser(filepath1);
-  const file2 = parser(filepath2);
-  const tree = createTree(file1, file2);
-  return format(tree, formatType);
+const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
+  const file1format = extractFormat(filepath1);
+  const file2format = extractFormat(filepath2);
+  const fileContent1 = readFile(filepath1);
+  const fileContent2 = readFile(filepath2);
+  const data1 = parse(file1format, fileContent1);
+  const data2 = parse(file2format, fileContent2);
+  const innerTree = buildTree(data1, data2);
+  return format(innerTree, formatName);
 };
 export default genDiff;

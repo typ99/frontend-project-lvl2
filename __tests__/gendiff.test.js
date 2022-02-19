@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import genDiff from '../src/index.js';
@@ -7,28 +7,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
+const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-test('json', () => {
-  const file1 = getFixturePath('file1.json');
-  const file2 = getFixturePath('file2.json');
-  const result = readFile('resultjson.txt');
+const cases = [
+  ['file1.json', 'file2.json', 'resultjson.txt', 'json'],
+  ['file1.yml', 'file2.yml', 'resultstylish.txt', 'stylish'],
+  ['file1.json', 'file2.json', 'resultstylish.txt', 'stylish'],
+  ['file1.json', 'file2.json', 'resultplain.txt', 'plain'],
+];
 
-  expect(genDiff(file1, file2)).toBe(result);
-});
-
-test('yaml', () => {
-  const file1 = getFixturePath('file1.yml');
-  const file2 = getFixturePath('file2.yml');
-  const result = readFile('resultyml.txt');
-
-  expect(genDiff(file1, file2)).toBe(result);
-});
-
-test('plain', () => {
-  const file1 = getFixturePath('file1.json');
-  const file2 = getFixturePath('file2.json');
-  const result = readFile('resultplain.txt');
-
-  expect(genDiff(file1, file2, 'plain')).toBe(result);
+test.each(cases)('Compare %s and %s to expect %s in "%s" style', (firstArg, secondArg, expectedResult, format) => {
+  const firstFile = getFixturePath(firstArg);
+  const secondFile = getFixturePath(secondArg);
+  const getResult = readFile(expectedResult);
+  const result = genDiff(firstFile, secondFile, format);
+  expect(result).toEqual(getResult);
 });
