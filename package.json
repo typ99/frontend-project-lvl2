@@ -1,0 +1,29 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Compares two configuration files and shows a difference.",
+  "homepage": "https://github.com/typ99/frontend-project-lvl2#readme",
+  "bugs": {
+    "url": "https://github.com/typ99/frontend-project-lvl2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/typ99/frontend-project-lvl2.git"
+  },
+  "author": "typ99",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "gendiff": "gendiff.js"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0"
+  },
+  "dependencies": {
+    "commander": "^15.0.0"
+  }
+}
