@@ -3,7 +3,7 @@ install:
 publish:
 	npm publish --dry-run
 lint:
-	oxlint
+	npm run lint
 test:
 	npm test
 test-coverage:
