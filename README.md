@@ -24,6 +24,10 @@ cd frontend-project-lvl2
 
 <!-- Добавьте примеры запуска и запись asciinema — именно это смотрит работодатель -->
 
+### Gendiff two json files
+
+[![asciicast](https://asciinema.org/a/1265540.svg)](https://asciinema.org/a/1265540)
+
 ---
 
 <details>
