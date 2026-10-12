@@ -17,6 +17,16 @@ const buildDiff = (data1, data2) => {
         if (data1[key] === data2[key]) {
             return { key, value: data1[key], status: 'unchanged' };
         }
+        if (
+            typeof data1[key] === 'object' &&
+            data1[key] !== null &&
+            !Array.isArray(data1[key]) &&
+            typeof data2[key] === 'object' &&
+            data2[key] !== null &&
+            !Array.isArray(data2[key])
+        ) {
+            return { key, children: buildDiff(data1[key], data2[key]), status: 'nested' };
+        }
 
         return { key, value1: data1[key], value2: data2[key], status: 'changed' };
     });
@@ -24,7 +34,7 @@ const buildDiff = (data1, data2) => {
     return diffItems;
 };
 
-const genDiff = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2, format = 'stylish') => {
     const file1Ext = path.extname(filepath1).slice(1);
     const file2Ext = path.extname(filepath2).slice(1);
     const content1 = fs.readFileSync(path.resolve(process.cwd(), filepath1), 'utf-8');
@@ -33,7 +43,12 @@ const genDiff = (filepath1, filepath2) => {
     const file2Parsed = parser(content2, file2Ext);
     const diff = buildDiff(file1Parsed, file2Parsed);
 
-    return formatStylish(diff);
+    switch (format) {
+        case 'stylish':
+            return formatStylish(diff);
+        default:
+            throw new Error(`Unknown format: ${format}`);
+    }
 };
 
 export default genDiff;

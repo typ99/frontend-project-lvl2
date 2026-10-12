@@ -33,6 +33,10 @@ cd frontend-project-lvl2
 
 [![asciicast](https://asciinema.org/a/1268218.svg)](https://asciinema.org/a/1268218)
 
+### Gendiff two nested files
+
+[![asciicast](https://asciinema.org/a/1268230.svg)](https://asciinema.org/a/1268230)
+
 ---
 
 <details>
