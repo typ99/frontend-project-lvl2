@@ -29,6 +29,10 @@ cd frontend-project-lvl2
 
 [![asciicast](https://asciinema.org/a/1265540.svg)](https://asciinema.org/a/1265540)
 
+### Gendiff two yaml files
+
+[![asciicast](https://asciinema.org/a/1268218.svg)](https://asciinema.org/a/1268218)
+
 ---
 
 <details>

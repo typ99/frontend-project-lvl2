@@ -19,4 +19,10 @@ describe('genDiff', () => {
         const filepath2 = getFixturePath('file2.json');
         expect(genDiff(filepath1, filepath2)).toBe(expected);
     });
+
+    test('compares two YAML files', () => {
+        const filepath1 = getFixturePath('file1.yml');
+        const filepath2 = getFixturePath('file2.yml');
+        expect(genDiff(filepath1, filepath2)).toBe(expected);
+    });
 });
