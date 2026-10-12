@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parser } from './parser.js';
-import { formatStylish } from './stylish.js';
+import { getFormatter } from './formatters/index.js';
 
 const buildDiff = (data1, data2) => {
     const data1Keys = Object.keys(data1);
@@ -34,7 +34,7 @@ const buildDiff = (data1, data2) => {
     return diffItems;
 };
 
-const genDiff = (filepath1, filepath2, format = 'stylish') => {
+const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
     const file1Ext = path.extname(filepath1).slice(1);
     const file2Ext = path.extname(filepath2).slice(1);
     const content1 = fs.readFileSync(path.resolve(process.cwd(), filepath1), 'utf-8');
@@ -42,13 +42,9 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
     const file1Parsed = parser(content1, file1Ext);
     const file2Parsed = parser(content2, file2Ext);
     const diff = buildDiff(file1Parsed, file2Parsed);
+    const format = getFormatter(formatName);
 
-    switch (format) {
-        case 'stylish':
-            return formatStylish(diff);
-        default:
-            throw new Error(`Unknown format: ${format}`);
-    }
+    return format(diff);
 };
 
 export default genDiff;
